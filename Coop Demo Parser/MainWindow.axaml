@@ -10,7 +10,10 @@
       <StackPanel Width="250" HorizontalAlignment="Left">
         <Border BorderThickness="2" BorderBrush="Black" CornerRadius="10" Margin="15" Width="220" Height="220">
           <Panel DragDrop.AllowDrop="True" Height ="220" Width="220">
-            <TextBlock Name="FileDropTextBlock" TextAlignment="Center" VerticalAlignment="Center">Drop file here</TextBlock>
+			  <ListBox Name="FilesListBox" SelectionChanged="FilesListBox_OnSelectionChanged">
+
+			  </ListBox>
+	          <TextBlock Name="FileDropTextBlock" TextAlignment="Center" VerticalAlignment="Center">Drop files here</TextBlock>
           </Panel>
         </Border>
         <Button HorizontalAlignment="Center" Click="OpenDemoButton_OnClick">Open demo file</Button>

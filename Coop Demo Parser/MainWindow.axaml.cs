@@ -18,10 +18,28 @@ using Avalonia;
 
 namespace Coop_Demo_Parser
 {
+	public class DemoListItem
+	{
+		public string FileName { get; private set; }
+		public string FullFilePath { get; private set; }
+		public SourceDemo demo { get; private set; }
+
+		public DemoListItem(IStorageItem source)
+		{
+			FileName = source.Name;
+			FullFilePath = source.Path.LocalPath;
+
+			demo = new SourceDemo(FullFilePath);
+			demo.Parse();
+		}
+
+		public override string ToString() => FileName;
+	}
 	public partial class MainWindow : Window
 	{
 		private TextBlock fileNameTextBlock;
 		private TextBlock basicDemoInfoTextBlock;
+		private ListBox filesListBox;
 		private string demoFileName;
 		private SourceDemo? demo = null;
 
@@ -37,24 +55,28 @@ namespace Coop_Demo_Parser
 			AvaloniaXamlLoader.Load(this);
 			fileNameTextBlock = this.FindControl<TextBlock>("FileDropTextBlock");
 			basicDemoInfoTextBlock = this.FindControl<TextBlock>("BasicDemoInfoTextBlock");
+			filesListBox = this.FindControl<ListBox>("FilesListBox");
 		}
 
 		private void DropFile(object? sender, DragEventArgs e)
 		{
 			// Todo: handle multiple files - right now it's only 1 / the first item
 			IEnumerable<IStorageItem> filesDropped = e.Data.GetFiles();
-			SetDemoInfo(filesDropped.First().Name, filesDropped.First().Path.AbsolutePath);
+			foreach (IStorageItem item in filesDropped)
+			{
+				AddDemoInfo(item);
+			}
 		}
 
-		private void SetDemoInfo(string demoName, string demoPath)
+		private void AddDemoInfo(IStorageItem file)
 		{
-			if (demoName.Split(".")[1] != "dem")
-				return;
-			demoFileName = demoPath;
-			fileNameTextBlock.Text = demoName;
-			demo = new SourceDemo(demoFileName);
-			demo.Parse();
+			filesListBox.Items.Add(new DemoListItem(file));
+			fileNameTextBlock.IsVisible = false;
+			filesListBox.SelectedIndex = filesListBox.Items.Count - 1;
+		}
 
+		private void SetDemoInfo(SourceDemo demo)
+		{
 			basicDemoInfoTextBlock.Text = demo.Header.ToString();
 		}
 
@@ -68,15 +90,16 @@ namespace Coop_Demo_Parser
 				});
 			if (files.Count > 0)
 			{
-				IStorageFile file = files.First();
-				SetDemoInfo(file.Name, file.Path.AbsolutePath);
+				foreach (IStorageFile file in files)
+				{
+					AddDemoInfo(file);
+				}
 			}
 		}
 
-		private void ExportDemoInfoButton_OnClick(object? sender, RoutedEventArgs e)
+		private void ExportPortalInfo(DemoListItem item)
 		{
-			if (demo == null)
-				return;
+			SourceDemo demo = item.demo;
 			List<(PortalFxSurface, int)> portalMessages = new List<(PortalFxSurface, int)>();
 			foreach ((SvcUserMessage message, int tick) in demo.FilterForMessage<SvcUserMessage>())
 			{
@@ -84,8 +107,8 @@ namespace Coop_Demo_Parser
 					portalMessages.Add(((PortalFxSurface)message.UserMessage, tick));
 			}
 			portalMessages.Sort((item1, item2) => item1.Item2.CompareTo(item2.Item2));
-
-			string outFileName = Path.Combine(Path.GetFullPath(Path.GetDirectoryName(demoFileName)), Path.GetFileNameWithoutExtension(demoFileName) + " portals.csv");
+			
+			string outFileName = Path.Combine(Path.GetFullPath(Path.GetDirectoryName(item.FullFilePath)), Path.GetFileNameWithoutExtension(item.FullFilePath) + " portals.csv");
 			using (StreamWriter writer = new StreamWriter(outFileName))
 			{
 				writer.WriteLine("tick,Portal Entity,Owner Entity,Team,Portal Num,Effect,Origin X,Origin Y, Origin Z,Orientation X,Orientation Y,Orientation Z");
@@ -113,12 +136,27 @@ namespace Coop_Demo_Parser
 						default:
 							writer.Write("0");
 							break;
-					} writer.Write(",");
+					}
+					writer.Write(",");
 					writer.Write("{0},{1},{2},", message.Origin.X, message.Origin.Y, message.Origin.Z);
 					writer.Write("{0},{1},{2},", message.Angles.X, message.Angles.Y, message.Angles.Z);
 					writer.WriteLine();
 				}
 			}
+		}
+
+		private void ExportDemoInfoButton_OnClick(object? sender, RoutedEventArgs e)
+		{
+			foreach (object item in filesListBox.Items)
+			{
+				ExportPortalInfo((DemoListItem)item);
+			}
+		}
+
+		private void FilesListBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+		{
+			SourceDemo thisDemo = ((DemoListItem)filesListBox.SelectedItems[0]).demo;
+			SetDemoInfo(thisDemo);
 		}
 	}
 }
