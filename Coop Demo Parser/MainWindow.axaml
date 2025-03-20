@@ -1,0 +1,24 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" MaxHeight="450" MaxWidth="800"
+        x:Class="Coop_Demo_Parser.MainWindow"
+        Title="Coop_Demo_Parser">
+  <Grid>
+    <StackPanel Orientation="Horizontal">
+      <StackPanel Width="250" HorizontalAlignment="Left">
+        <Border BorderThickness="2" BorderBrush="Black" CornerRadius="10" Margin="15" Width="220" Height="220">
+          <Panel DragDrop.AllowDrop="True" Height ="220" Width="220">
+            <TextBlock Name="FileDropTextBlock" TextAlignment="Center" VerticalAlignment="Center">Drop file here</TextBlock>
+          </Panel>
+        </Border>
+        <Button HorizontalAlignment="Center" Click="OpenDemoButton_OnClick">Open demo file</Button>
+	      <Button HorizontalAlignment="Center" Name="ExportDemoInfoButton" Click="ExportDemoInfoButton_OnClick">Export portal info</Button>
+      </StackPanel>
+      <StackPanel Margin="15">
+        <TextBlock Name="BasicDemoInfoTextBlock">Boop</TextBlock>
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</Window>

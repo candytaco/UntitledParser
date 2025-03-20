@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29806.167
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35913.81 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoParser", "DemoParser\DemoParser.csproj", "{C61D7FFB-7CD2-43CC-89DA-B9D8B3803385}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{4B0F5468-9981-4E07-B2CD-DD62BFAF7D1F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{B6C5A577-C873-4E64-BC10-DE55BB3236A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coop Demo Parser", "Coop Demo Parser\Coop Demo Parser.csproj", "{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,18 @@ Global
 		{B6C5A577-C873-4E64-BC10-DE55BB3236A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B6C5A577-C873-4E64-BC10-DE55BB3236A2}.Release|x64.ActiveCfg = Release|x64
 		{B6C5A577-C873-4E64-BC10-DE55BB3236A2}.Release|x64.Build.0 = Release|x64
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Debug_ProcessEnts|Any CPU.ActiveCfg = Debug|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Debug_ProcessEnts|Any CPU.Build.0 = Debug|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Debug_ProcessEnts|x64.ActiveCfg = Debug|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Debug_ProcessEnts|x64.Build.0 = Debug|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Debug|x64.Build.0 = Debug|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Release|x64.ActiveCfg = Release|Any CPU
+		{021C4CC2-070D-4693-AD7A-B5F6B20B3D82}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
