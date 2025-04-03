@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -21,6 +22,11 @@ namespace DemoParser.Parser.Components.Packets.StringTableEntryTypes {
 
 		public override void PrettyWrite(IPrettyWriter pw) {
 			pw.Append($"(flags: {Flags})");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			parent.Add(new XElement("PrecacheData", Flags.ToString()));
 		}
 	}
 

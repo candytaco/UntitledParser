@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -63,6 +64,20 @@ namespace DemoParser.Parser.Components.Packets.StringTableEntryTypes {
 				pw.AppendLine($"custom file crc's: [logo: 0x{CustomFiles[0]:X}, sounds: 0x{CustomFiles[1]:X}, " +
 							  $"models: 0x{CustomFiles[2]:X}, txt: 0x{CustomFiles[3]:X}]");
 			pw.Append($"files downloaded: {FilesDownloaded}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("PlayerInfo");
+			if (SteamId != null)
+				thisElement.Add(new XAttribute("SteamID", SteamId.ToString()));
+			thisElement.Add(new XElement("Name", Name));
+			thisElement.Add(new XElement("UserID", UserId));
+			thisElement.Add(new XElement("GUID", Guid));
+			thisElement.Add(new XElement("Friends-ID", FriendsId));
+			thisElement.Add(new XElement("Friends-Name", FriendsName));
+			thisElement.Add(new XElement("Is-HLTV", IsHlTv));
+			// ignore custom files and files downloaded because we don't care
 		}
 
 

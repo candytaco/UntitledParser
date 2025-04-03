@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Packets.StringTableEntryTypes {
 
@@ -20,6 +21,11 @@ namespace DemoParser.Parser.Components.Packets.StringTableEntryTypes {
 
 		public override void PrettyWrite(IPrettyWriter pw) {
 			pw.Append(Port.ToString());
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			parent.Add(new XElement("QueryPort", Port.ToString()));
 		}
 	}
 }

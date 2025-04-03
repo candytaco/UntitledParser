@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -26,6 +27,13 @@ namespace DemoParser.Parser.Components.Packets.StringTableEntryTypes {
 			pw.Append(Values == null
 				? "0 frames (256)"
 				: $"{Values.Length} frame{(Values.Length > 1 ? "s" : "")}: {Values.SequenceToString().Replace(",", "")}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			parent.Add(new XElement("LightStyle", Values == null
+				? "0 frames (256)"
+				: $"{Values.Length} frame{(Values.Length > 1 ? "s" : "")}: {Values.SequenceToString().Replace(",", "")}"));
 		}
 	}
 }

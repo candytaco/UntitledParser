@@ -1,5 +1,6 @@
 #nullable enable
 using System.Collections.Generic;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.Components.Messages;
 using DemoParser.Parser.EntityStuff;
@@ -71,6 +72,23 @@ namespace DemoParser.Parser.Components.Packets.StringTableEntryTypes {
 				}
 				pw.FutureIndent--;
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("InstanceBaseLine");
+			thisElement.Add(new XAttribute("Class", ServerClassRef.ClassName));
+			thisElement.Add(new XAttribute("DataTableName", ServerClassRef.DataTableName));
+			if (Properties != null)
+			{
+				XElement props = new XElement("Props");
+				foreach ((int i, EntityProperty prop) in Properties)
+				{
+					prop.XMLWrite(props);
+				}
+				thisElement.Add(props);
+			}
+			parent.Add(thisElement);
 		}
 	}
 }

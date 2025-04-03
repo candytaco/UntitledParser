@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -19,6 +20,11 @@ namespace DemoParser.Parser.Components.Packets.StringTableEntryTypes {
 
 		public override void PrettyWrite(IPrettyWriter pw) {
 			pw.Append(Str.ToLiteral());
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			parent.Add(new XElement("StringEntryData", Str.ToLiteral()));
 		}
 	}
 }
