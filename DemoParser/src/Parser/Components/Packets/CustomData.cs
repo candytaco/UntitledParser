@@ -1,5 +1,7 @@
 #nullable enable
+using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.GameState;
 using DemoParser.Utils;
@@ -60,6 +62,27 @@ namespace DemoParser.Parser.Components.Packets {
 					pw.FutureIndent--;
 				}
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("CustomData");
+			if (NewEntries != null)
+			{
+				foreach (string entry in NewEntries)
+					thisElement.Add(new XElement("NewEntry"), entry);
+			}
+			else
+			{
+				if (Data == null)
+					thisElement.Value = String.Format("Unknown Type {0}", TypeVal);
+				else
+				{
+					thisElement.Add(new XAttribute("Type", TypeVal));
+					Data.XMLWrite(thisElement);
+				}
+			}
+			parent.Add(thisElement);
 		}
 	}
 }
