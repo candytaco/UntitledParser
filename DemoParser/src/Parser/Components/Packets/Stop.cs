@@ -1,5 +1,6 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Packets {
 
@@ -15,5 +16,10 @@ namespace DemoParser.Parser.Components.Packets {
 
 
 		protected override void Parse(ref BitStreamReader bsr) {}
+
+		public override void XMLWrite(XElement parent)
+		{
+			return;
+		}
 	}
 }
