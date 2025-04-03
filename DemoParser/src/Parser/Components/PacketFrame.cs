@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -62,6 +63,23 @@ namespace DemoParser.Parser.Components {
 				}
 			} else {
 				pw.Append("demo parsing failed here, packet type doesn't correspond with any known packet");
+			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			if (Packet == null)
+				parent.Add(new XComment("demo parsing failed here, packet type doesn't correspond with any known packet"));
+			else
+			{
+				XElement thisFrame = new XElement("Frame");
+				thisFrame.Add(new XAttribute("Tick", Tick));
+				thisFrame.Add(new XAttribute("Type", Type.ToString()));
+				if (DemoInfo.NewDemoProtocol && PlayerSlot.HasValue)
+					thisFrame.Add(new XAttribute("Player-Slot", PlayerSlot.Value));
+				if (Packet.MayContainData)
+					Packet.XMLWrite(thisFrame);
+				parent.Add(thisFrame);
 			}
 		}
 	}

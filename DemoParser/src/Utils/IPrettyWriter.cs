@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Xml.Linq;
 
 namespace DemoParser.Utils {
 
@@ -218,5 +219,12 @@ namespace DemoParser.Utils {
 			ip.PrettyWrite(psw);
 			return psw.Contents;
 		}
+
+		// not necessarily best place, but everything inherits here so...
+		/// <summary>
+		/// Fill an XML document with this item's info for other computer parsers
+		/// </summary>
+		/// <param name="parent">parent XML element to append self to</param>
+		public abstract void XMLWrite(XElement parent);
 	}
 }

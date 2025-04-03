@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils.BitStreams;
 
@@ -13,5 +14,9 @@ namespace DemoParser.Parser.Components.Packets {
 		public SyncTick(SourceDemo? demoRef, PacketFrame frameRef): base(demoRef, frameRef) {}
 
 		protected override void Parse(ref BitStreamReader bsr) {}
+		public override void XMLWrite(XElement parent)
+		{
+			return;
+		}
 	}
 }

@@ -1,10 +1,13 @@
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
 
-namespace DemoParser.Parser.Components {
+namespace DemoParser.Parser.Components
+{
 
-	public class DemoHeader : DemoComponent {
+	public class DemoHeader : DemoComponent
+	{
 
 		public string FileStamp;
 		public uint DemoProtocol;
@@ -19,9 +22,10 @@ namespace DemoParser.Parser.Components {
 		public uint SignOnLength;
 
 
-		public DemoHeader(SourceDemo? demoRef) : base(demoRef) {}
+		public DemoHeader(SourceDemo? demoRef) : base(demoRef) { }
 
-		protected override void Parse(ref BitStreamReader bsr) {
+		protected override void Parse(ref BitStreamReader bsr)
+		{
 			FileStamp = bsr.ReadStringOfLength(8);
 			DemoProtocol = bsr.ReadUInt();
 			NetworkProtocol = bsr.ReadUInt();
@@ -36,7 +40,8 @@ namespace DemoParser.Parser.Components {
 		}
 
 
-		public override void PrettyWrite(IPrettyWriter pw) {
+		public override void PrettyWrite(IPrettyWriter pw)
+		{
 			pw.AppendLine($"file stamp: {FileStamp}");
 			pw.AppendLine($"demo protocol: {DemoProtocol}");
 			pw.AppendLine($"network protocol: {NetworkProtocol}");
@@ -48,6 +53,23 @@ namespace DemoParser.Parser.Components {
 			pw.AppendLine($"tick count: {TickCount}");
 			pw.AppendLine($"frame count: {FrameCount}");
 			pw.Append($"sign on length: {SignOnLength}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement header = new XElement("Header");
+			header.Add(new XElement("File-Stamp", FileStamp));
+			header.Add(new XElement("Demo-Protocol", DemoProtocol));
+			header.Add(new XElement("Network-Protocol", NetworkProtocol));
+			header.Add(new XElement("Server-Name", ServerName));
+			header.Add(new XElement("Client-Name", ClientName));
+			header.Add(new XElement("Map-Name", MapName));
+			header.Add(new XElement("Game-Directory", GameDirectory));
+			header.Add(new XElement("Playback-Time", PlaybackTime));
+			header.Add(new XElement("Tick-Count", TickCount));
+			header.Add(new XElement("Frame-Count", FrameCount));
+			header.Add(new XElement("SignOn-Length", SignOnLength));
+			parent.Add(header);
 		}
 	}
 }

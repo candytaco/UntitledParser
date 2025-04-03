@@ -1,4 +1,7 @@
 using System;
+using System.Net;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -67,6 +70,31 @@ namespace DemoParser.Parser.Components.Packets {
 				WeaponSelect?.ToString() ?? "null", WeaponSubtype?.ToString() ?? "null");
 			pw.AppendFormat("mouseDx, mouseDy: {0,4}, {1,4}",
 				MouseDx?.ToString() ?? "null", MouseDy?.ToString() ?? "null");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("UserCommand",
+				new XAttribute("Command_number", CommandNumber.Value),
+				new XAttribute("Tick-Count", TickCount.Value));
+			if (ViewAngleX.HasValue || ViewAngleY.HasValue || ViewAngleZ.HasValue)
+				thisElement.Add(new XElement("View-Angles", String.Format("{0},{1},{2}", ViewAngleX, ViewAngleY, ViewAngleZ)));
+			if (SidewaysMovement.HasValue || ForwardMovement.HasValue || VerticalMovement.HasValue)
+				thisElement.Add(new XElement("Movement", String.Format("{0},{1},{2}", SidewaysMovement, ForwardMovement, VerticalMovement)));
+			if (Buttons.HasValue)
+				thisElement.Add(new XElement("Buttons", Buttons.ToString()));
+			if (Impulse.HasValue)
+				thisElement.Add(new XElement("Impulse", Impulse.ToString()));
+			if (WeaponSelect.HasValue)
+			{
+				XElement weapon = new XElement("WeaponSelect", WeaponSelect.ToString());
+				if (WeaponSubtype.HasValue)
+					weapon.Add(new XAttribute("Subtype", WeaponSubtype.ToString()));
+				thisElement.Add(weapon);
+			}
+			if (MouseDx.HasValue ||  MouseDy.HasValue)
+				thisElement.Add(new XElement("Mouse", new XAttribute("dX", MouseDx), new XAttribute("dY", MouseDy)));
+			parent.Add(thisElement);
 		}
 	}
 
