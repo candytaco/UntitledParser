@@ -1,6 +1,7 @@
 #nullable enable
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.Components.Messages;
 using DemoParser.Parser.EntityStuff;
@@ -187,6 +188,24 @@ namespace DemoParser.Parser.Components.Packets {
 				pw.Append("no classes");
 			}
 		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("DataTables");
+			if (!ParseSuccessful)
+				thisElement.Value = "Failed to parse";
+			else
+			{
+				if (Tables.Count > 0)
+				{
+					XElement sendTables = new XElement("SendTables");
+					foreach (SendTable sendTable in Tables)
+						sendTable.XMLWrite(sendTables);
+					thisElement.Add(sendTables);
+				}
+			}
+			parent.Add(thisElement);
+		}
 	}
 
 
@@ -231,6 +250,11 @@ namespace DemoParser.Parser.Components.Packets {
 			} else {
 				pw.Append("no props)");
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }
