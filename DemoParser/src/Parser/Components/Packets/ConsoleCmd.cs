@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -37,6 +38,14 @@ namespace DemoParser.Parser.Components.Packets {
 			pw.Append(Command);
 			if (ButtonCode.HasValue)
 				pw.Append($"   ({ButtonCode.Value})");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("ConsoleCmd", Command);
+			if (ButtonCode.HasValue)
+				thisElement.Add(new XAttribute("ButtonCode", ButtonCode.Value));
+			parent.Add(thisElement);
 		}
 	}
 
