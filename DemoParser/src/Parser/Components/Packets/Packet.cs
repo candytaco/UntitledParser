@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Numerics;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.Components.Messages;
 using DemoParser.Utils;
@@ -80,6 +81,16 @@ namespace DemoParser.Parser.Components.Packets {
 			pw.AppendLine($"out sequence: {OutSequence}");
 			MessageStream.PrettyWrite(pw);
 		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("Packet");
+			foreach (CmdInfo cmdInfo in PacketInfo)
+				cmdInfo.XMLWrite(thisElement);
+			thisElement.Add(new XElement("Sequence", new XAttribute("In", InSequence), new XAttribute("Out", OutSequence)));
+			MessageStream.XMLWrite(thisElement);
+			parent.Add(this);
+		}
 	}
 
 
@@ -117,7 +128,27 @@ namespace DemoParser.Parser.Components.Packets {
 					$"{Names[i]}:", $"{_floats[i].X:F2}{dSym}", $"{_floats[i].Y:F2}{dSym}", $"{_floats[i].Z:F2}{dSym}");
 			}
 		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("Command-Info", new XAttribute("Flags", Flags));
+			thisElement.Add(MakeVect3Element("View-Origin", ViewOrigin));
+			thisElement.Add(MakeVect3Element("View-Angles", ViewAngles));
+			thisElement.Add(MakeVect3Element("Local-View-Angles", LocalViewAngles));
+			thisElement.Add(MakeVect3Element("View-Origin-2", ViewOrigin2));
+			thisElement.Add(MakeVect3Element("View-Angles-2", ViewAngles2));
+			thisElement.Add(MakeVect3Element("Local-View-Angles-2", LocalViewAngles2));
+			parent.Add(thisElement);
+		}
+		public static XElement MakeVect3Element(string Name, Vector3 vect)
+		{
+			return new XElement(Name,
+				new XElement("X", vect.X),
+				new XElement("Y", vect.Y),
+				new XElement("Z", vect.Z));
+		}
 	}
+
 
 
 	[Flags]
