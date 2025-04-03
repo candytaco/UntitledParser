@@ -1,6 +1,8 @@
 #nullable enable
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -82,6 +84,14 @@ namespace DemoParser.Parser.Components.Packets {
 				pw.AppendLine();
 			}
 		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement tables = new XElement("StringTables");
+			foreach (StringTable table in Tables)
+				table.XMLWrite(tables);	
+			parent.Add(tables);
+		}
 	}
 
 
@@ -153,6 +163,27 @@ namespace DemoParser.Parser.Components.Packets {
 			}
 			pw.FutureIndent--;
 		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("StringTable", new XAttribute("Name", Name));
+			if (TableEntries != null)
+			{
+				XElement entriesElement = new XElement("Entries");
+				foreach (StringTableEntry entry in TableEntries) 
+					entry.XMLWrite(entriesElement);
+				thisElement.Add(entriesElement);
+			}
+
+			if (Classes != null)
+			{
+				XElement classesElement = new XElement("Classes");
+				foreach (StringTableClass tableClass in Classes)
+					tableClass.XMLWrite(classesElement);
+				thisElement.Add(classesElement);
+			}
+			parent.Add(thisElement);
+		}
 	}
 
 
@@ -221,6 +252,14 @@ namespace DemoParser.Parser.Components.Packets {
 				pw.Append(Name);
 			}
 		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("Entry", new XAttribute("Name", Name));
+			if (EntryData != null)
+				EntryData.XMLWrite(thisElement);
+			parent.Add(thisElement);
+		}
 	}
 
 
@@ -247,6 +286,14 @@ namespace DemoParser.Parser.Components.Packets {
 			pw.Append($"name: {Name}");
 			if (Data != null)
 				pw.Append($", data: {Data}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("Class", new XAttribute("Name", Name));
+			if (Data != null)
+				thisElement.Value = Data;
+			parent.Add(thisElement);
 		}
 	}
 }
