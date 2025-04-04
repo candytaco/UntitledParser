@@ -1,6 +1,8 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace DemoParser.Parser.Components.Messages {
 
@@ -44,6 +46,17 @@ namespace DemoParser.Parser.Components.Messages {
 				if (MapName != null)
 					pw.Append($"\nmap name: {MapName}");
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("NetSignOnState", new XElement("Spawn-Count", SpawnCount), new XElement("SignOnState", SignOnState));
+			if (DemoInfo.NewDemoProtocol)
+			{
+				thisElement.Add(new XElement("Num-Server-Players", NumServerPlayers));
+				thisElement.Add(new XElement("Map-Name", MapName));
+			}
+			parent.Add(thisElement);
 		}
 	}
 

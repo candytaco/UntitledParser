@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -29,6 +30,15 @@ namespace DemoParser.Parser.Components.Messages {
 				if (i != ConVars.Count - 1)
 					pw.AppendLine();
 			}
+		}
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("NetSetConVar");
+			foreach (var item in ConVars)
+			{
+				thisElement.Add(new XElement(item.Item1, item.Item2));
+			}
+			parent.Add(thisElement);
 		}
 	}
 

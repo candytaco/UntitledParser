@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -26,6 +27,10 @@ namespace DemoParser.Parser.Components.Messages {
 			pw.AppendLine($"transfer ID: {TransferId}");
 			pw.AppendLine($"file name: {FileName}");
 			pw.Append($"flags: {FileFlags}");
+		}
+		public override void XMLWrite(XElement parent)
+		{
+			parent.Add(new XElement("NetFile", FileName, new XAttribute("Transfer-ID", TransferId), new XAttribute("Flags", FileFlags)));
 		}
 	}
 
