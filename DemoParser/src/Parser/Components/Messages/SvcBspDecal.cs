@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.GameState;
 using DemoParser.Utils;
@@ -41,6 +42,11 @@ namespace DemoParser.Parser.Components.Messages {
 				pw.AppendLine($"model index: {ModelIndex}");
 			}
 			pw.Append($"low priority: {LowPriority}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			parent.Add(new XElement("SvcBspDecal"));
 		}
 	}
 }

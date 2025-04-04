@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.EntityStuff;
 using DemoParser.Parser.GameState;
@@ -189,6 +190,14 @@ namespace DemoParser.Parser.Components.Messages {
 			} else {
 				pw.Append("\n(entity parsing not supported for this game)");
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
+		}
 		}
 	}
 }

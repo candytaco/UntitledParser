@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.GameState;
 using DemoParser.Utils;
@@ -43,6 +44,13 @@ namespace DemoParser.Parser.Components.Messages {
 			}
 			pw.FutureIndent--;
 		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
+		}
 	}
 
 
@@ -72,6 +80,13 @@ namespace DemoParser.Parser.Components.Messages {
 			pw.AppendLine();
 			pw.Append($"keys: {Keys.Select(tup => $"{tup.type.ToString().ToLower()} {tup.Name}").SequenceToString()}");
 			pw.FutureIndent--;
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 

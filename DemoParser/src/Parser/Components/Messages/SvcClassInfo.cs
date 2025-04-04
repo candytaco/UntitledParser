@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.GameState;
 using DemoParser.Utils;
@@ -46,6 +47,12 @@ namespace DemoParser.Parser.Components.Messages {
 				pw.FutureIndent--;
 			}
 		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			parent.Add(new XElement(this.GetType().Name));
+			// TODO: this
+		}
 	}
 
 
@@ -80,6 +87,12 @@ namespace DemoParser.Parser.Components.Messages {
 
 		public override void PrettyWrite(IPrettyWriter pw) {
 			pw.Append($"[{DataTableId}] {ClassName} ({DataTableName})");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			parent.Add(new XElement(this.GetType().Name));
+			// TODO: this
 		}
 
 		// I don't think I'll need these hashcode methods if the the ID always matches the index

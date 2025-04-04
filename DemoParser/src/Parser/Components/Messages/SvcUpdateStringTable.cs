@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.Components.Packets;
 using DemoParser.Parser.GameState;
@@ -47,6 +48,13 @@ namespace DemoParser.Parser.Components.Messages {
 			pw.AppendLine();
 			TableUpdates.PrettyWrite(pw);
 			pw.FutureIndent--;
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 
@@ -223,6 +231,13 @@ namespace DemoParser.Parser.Components.Messages {
 				}
 			}
 		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
+		}
 	}
 
 
@@ -260,6 +275,14 @@ namespace DemoParser.Parser.Components.Messages {
 					pw.FutureIndent--;
 				}
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
+		}
 		}
 	}
 

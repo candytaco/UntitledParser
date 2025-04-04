@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages {
 
@@ -31,6 +32,14 @@ namespace DemoParser.Parser.Components.Messages {
 				pw.AppendLine($"\nhost frame time: {HostFrameTime}");
 				pw.Append($"host frame time std dev: {HostFrameTimeStdDev}");
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("NetTick", new XAttribute("EngineTick", EngineTick));
+			if (DemoInfo.Game != SourceGame.HL2_OE)
+				thisElement.Add(new XElement("Host-Frame-Time", HostFrameTime, new XAttribute("Stdev", HostFrameTimeStdDev)));
+			parent.Add(thisElement);
 		}
 	}
 }

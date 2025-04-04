@@ -132,21 +132,15 @@ namespace DemoParser.Parser.Components.Packets {
 		public override void XMLWrite(XElement parent)
 		{
 			XElement thisElement = new XElement("Command-Info", new XAttribute("Flags", Flags));
-			thisElement.Add(MakeVect3Element("View-Origin", ViewOrigin));
-			thisElement.Add(MakeVect3Element("View-Angles", ViewAngles));
-			thisElement.Add(MakeVect3Element("Local-View-Angles", LocalViewAngles));
-			thisElement.Add(MakeVect3Element("View-Origin-2", ViewOrigin2));
-			thisElement.Add(MakeVect3Element("View-Angles-2", ViewAngles2));
-			thisElement.Add(MakeVect3Element("Local-View-Angles-2", LocalViewAngles2));
+			thisElement.Add(XMLHelper.MakeVect3Element("View-Origin", ViewOrigin));
+			thisElement.Add(XMLHelper.MakeVect3Element("View-Angles", ViewAngles));
+			thisElement.Add(XMLHelper.MakeVect3Element("Local-View-Angles", LocalViewAngles));
+			thisElement.Add(XMLHelper.MakeVect3Element("View-Origin-2", ViewOrigin2));
+			thisElement.Add(XMLHelper.MakeVect3Element("View-Angles-2", ViewAngles2));
+			thisElement.Add(XMLHelper.MakeVect3Element("Local-View-Angles-2", LocalViewAngles2));
 			parent.Add(thisElement);
 		}
-		public static XElement MakeVect3Element(string Name, Vector3 vect)
-		{
-			return new XElement(Name,
-				new XElement("X", vect.X),
-				new XElement("Y", vect.Y),
-				new XElement("Z", vect.Z));
-		}
+
 	}
 
 

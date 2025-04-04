@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.GameState;
 using DemoParser.Utils;
@@ -115,6 +116,43 @@ namespace DemoParser.Parser.Components.Messages {
 			}
 			if (HasReplay != null)
 				pw.Append($"\nhas replay: {HasReplay}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("SvcServerInfo");
+
+			thisElement.Add(new XElement("Network-Protocol",NetworkProtocol));
+			thisElement.Add(new XElement("Server-Count",ServerCount));
+			thisElement.Add(new XElement("Is-HLTV",IsHltv));
+			thisElement.Add(new XElement("Is-Dedicated",IsDedicated));
+			if (RestrictWorkshopAddons != null)
+				thisElement.Add(new XElement("Restrict-Workshop-Addons",RestrictWorkshopAddons));
+			thisElement.Add(new XElement("Server-Client-CRC",ClientCrc)); // change to hex?
+			if (StringTableCrc != null)
+				thisElement.Add(new XElement("string table CRC",StringTableCrc));
+			thisElement.Add(new XElement("Max-Server-Classes",MaxServerClasses));
+			if (MapMD5 != null)
+				thisElement.Add(new XElement("Map-MD5", BitConverter.ToString(MapMD5))); 
+			else
+				thisElement.Add(new XElement("Map-CRC", MapCrc));
+			thisElement.Add(new XElement("Current-Player-Count",PlayerCount));
+			thisElement.Add(new XElement("Max-Player-Count",MaxClients));
+			thisElement.Add(new XElement("Tick-Interval",TickInterval));
+			thisElement.Add(new XElement("Platform",Platform));
+			thisElement.Add(new XElement("Game-Directory",GameDir));
+			thisElement.Add(new XElement("Map-Name",MapName));
+			thisElement.Add(new XElement("Sky-Name",SkyName));
+			thisElement.Add(new XElement("Host-Name", HostName));
+			if (MissionName != null && MutationName != null)
+			{
+				thisElement.Add(new XElement("Mission-Name",MissionName));
+				thisElement.Add(new XElement("Mutation-Name", MutationName));
+			}
+			if (HasReplay != null)
+				thisElement.Add(new XElement("Has-Replay", HasReplay));
+
+			parent.Add(thisElement);
 		}
 	}
 }

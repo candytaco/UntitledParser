@@ -2,6 +2,7 @@ using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
 using System;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages;
 
@@ -38,5 +39,12 @@ public class SvcVoiceData : DemoMessage {
 				pw.Append($" {v}");
 			}
 		}
+	}
+
+	public override void XMLWrite(XElement parent)
+	{
+		XElement thisElement = new XElement(this.GetType().Name);
+		//TODO: this
+		parent.Add(thisElement);
 	}
 }

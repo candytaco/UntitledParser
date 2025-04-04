@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages {
 
@@ -29,6 +30,13 @@ namespace DemoParser.Parser.Components.Messages {
 			if (Quality != 255)
 				pw.AppendLine($"quality: {Quality}");
 			pw.Append(SampleRate == 0 && Codec == "steam" ? "sample rate: optimal" : $"sample rate: {SampleRate}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 }

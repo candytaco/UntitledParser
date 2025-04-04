@@ -1,7 +1,9 @@
+using System.Runtime.Serialization.Formatters;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.Components.Messages.UserMessages;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages {
 
@@ -57,6 +59,17 @@ namespace DemoParser.Parser.Components.Messages {
 				UserMessage.PrettyWrite(pw);
 				pw.FutureIndent--;
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("SvcUserMessage", new XAttribute("Type", MessageType));
+			if (UserMessage is UnknownUserMessage)
+				thisElement.Add(new XAttribute("Unknown", _unimplemented ? "Unimplemented" : "Parsing Failed"));
+			if (UserMessage.MayContainData)
+				UserMessage.XMLWrite(thisElement);
+			parent.Add(thisElement);
+		}
 		}
 	}
 }

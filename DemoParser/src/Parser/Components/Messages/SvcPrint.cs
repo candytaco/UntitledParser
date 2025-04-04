@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -46,6 +47,13 @@ namespace DemoParser.Parser.Components.Messages {
 			} else {
 				pw.Append(trimmed);
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("SvcPrint", Str.Trim());
+			parent.Add(thisElement);
+		}
 		}
 	}
 }

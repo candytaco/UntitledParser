@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using System.Numerics;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.GameState;
 using DemoParser.Utils;
@@ -80,6 +81,13 @@ namespace DemoParser.Parser.Components.Messages {
 				pw.AppendLine();
 				pw.Append("sound parsing failed");
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 
@@ -280,6 +288,14 @@ namespace DemoParser.Parser.Components.Messages {
 				pw.AppendLine($"random seed: {RandomSeed}");
 			pw.AppendLine($"origin: {Origin}");
 			pw.Append($"speaker entity: {SpeakerEntity}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
+		}
 		}
 
 

@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages {
 
@@ -26,6 +27,12 @@ namespace DemoParser.Parser.Components.Messages {
 			pw.AppendLine($"entity index: {EntityIndex}");
 			pw.AppendLine($"class ID: {ClassId}");
 			pw.Append($"data length in bits: {_data.BitLength}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			parent.Add(new XElement(this.GetType().Name));
+			// TODO: this
 		}
 	}
 }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
+using System.Xml.Linq;
 using DemoParser.Parser.Components;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.EntityStuff;
@@ -255,5 +257,15 @@ namespace DemoParser.Parser {
 		public static bool IsLeft4Dead1(this SourceGame game) { return game >= L4D1_1005 && game <= L4D1_1040; }
 		public static bool IsLeft4Dead2(this SourceGame game) { return game >= L4D2_2000 && game <= L4D2_2203; }
 		public static bool IsLeft4Dead(this SourceGame game) { return game.IsLeft4Dead1() || game.IsLeft4Dead2(); }
+	}
+
+	public static class XMLHelper
+	{ public static XElement MakeVect3Element(string Name, Vector3 vect)
+		{
+			return new XElement(Name,
+				new XElement("X", vect.X),
+				new XElement("Y", vect.Y),
+				new XElement("Z", vect.Z));
+		}
 	}
 }

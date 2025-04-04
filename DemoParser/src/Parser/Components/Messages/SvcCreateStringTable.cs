@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -54,6 +55,12 @@ namespace DemoParser.Parser.Components.Messages {
 			else
 				TableUpdates.PrettyWrite(pw);
 			pw.FutureIndent--;
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			parent.Add(new XElement(this.GetType().Name));
+			// TODO: this
 		}
 	}
 

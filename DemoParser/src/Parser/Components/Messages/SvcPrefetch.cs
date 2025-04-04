@@ -2,6 +2,7 @@ using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.GameState;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages {
 
@@ -35,6 +36,14 @@ namespace DemoParser.Parser.Components.Messages {
 				: "sound index:");
 
 			pw.Append($" [{SoundIndex}]");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
+		}
 		}
 	}
 }
