@@ -2,6 +2,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages.UserMessages {
 
@@ -34,6 +35,15 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 				pw.AppendLine();
 				MsgInfo.PrettyWrite(pw);
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			if (MsgInfo != null)
+				MsgInfo.XMLWrite(thisElement);
+			parent.Add(thisElement);
 		}
 
 
@@ -80,6 +90,14 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 				pw.AppendLine($"hold time: {HoldTime}");
 				pw.AppendLine($"fx time: {FxTime}");
 				pw.Append($"message: {Message}");
+			}
+
+			public override void XMLWrite(XElement parent)
+			{
+				XElement thisElement = new XElement(this.GetType().Name);
+				thisElement.Add(new XElement("Message", Message));
+				//TODO: this
+				parent.Add(thisElement);
 			}
 		}
 	}

@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -32,6 +33,13 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 			pw.AppendLine($"hold time: {HoldTime}");
 			pw.AppendLine($"flags: {Flags}");
 			pw.Append($"RGBA: {R:D3}, {G:D3}, {B:D3}, {A:D3}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 

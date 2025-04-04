@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages.UserMessages {
 
@@ -26,6 +27,13 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 			pw.Append($"destination: {Destination}");
 			for (int i = 0; i < MessageCount; i++)
 				pw.Append($"\nmessage {i + 1}: {Messages[i].Replace("\n", @"\n")}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 

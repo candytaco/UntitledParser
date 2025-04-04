@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages.UserMessages {
 
@@ -28,6 +29,13 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 			pw.AppendLine($"amplitude: {Amplitude}");
 			pw.AppendLine($"frequency: {Frequency}");
 			pw.Append($"duration: {Duration}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 

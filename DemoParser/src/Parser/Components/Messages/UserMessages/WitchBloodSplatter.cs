@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -18,6 +19,13 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 
 		public override void PrettyWrite(IPrettyWriter pw) {
 			pw.Append($"pos: {Pos}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 }

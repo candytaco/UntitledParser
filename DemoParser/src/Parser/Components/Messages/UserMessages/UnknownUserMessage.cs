@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages.UserMessages {
 
@@ -15,6 +16,13 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 
 		public override void PrettyWrite(IPrettyWriter pw) {
 			pw.Append($"{Reader.BitLength / 8} bytes: {Reader.ToHexString()}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 }

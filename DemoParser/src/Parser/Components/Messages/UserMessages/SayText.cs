@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages.UserMessages {
 
@@ -30,6 +31,13 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 			pw.Append($"wants to chat: {WantsToChat}");
 			/*if (DemoInfo.NewDemoProtocol)
 				iw.Append($"unknown: {Unknown}");*/
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("SayText", new XAttribute("ClientID", ClientId), new XAttribute("Wants-To-Chat", WantsToChat));
+			thisElement.Value = Str;
+			parent.Add(thisElement);
 		}
 	}
 }

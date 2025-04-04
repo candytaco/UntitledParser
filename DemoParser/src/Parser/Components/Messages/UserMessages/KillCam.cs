@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages.UserMessages {
 
@@ -28,6 +29,16 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 			pw.AppendLine($"target 1: {Target1}");
 			pw.AppendLine($"target 2: {Target2}");
 			pw.Append($"unknown: {Unknown}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("KillCam");
+			thisElement.Add(new XElement("SpecMode", SpecMode));
+			thisElement.Add(new XElement("Target-1", Target1));
+			thisElement.Add(new XElement("Target-2", Target2));
+			thisElement.Add(new XElement("Unknown-Item", Unknown));
+			parent.Add(thisElement);
 		}
 	}
 

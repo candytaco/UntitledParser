@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -29,6 +30,16 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 			pw.AppendLine($"portalled: {Portalled}");
 			pw.AppendLine($"new position: {NewPosition:F3}");
 			pw.Append($"new angles: <{NewAngles.X:F3}°, {NewAngles.Y:F3}°, {NewAngles.Z:F3}°>");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("EntityPortalled");
+			thisElement.Add(new XElement("Portal", Portal));
+			thisElement.Add(new XElement("Portalled-Entity", Portalled));
+			thisElement.Add(XMLHelper.MakeVect3Element("New-Position", NewPosition));
+			thisElement.Add(XMLHelper.MakeVect3Element("New-Angle", NewAngles));
+			parent.Add(thisElement);
 		}
 	}
 }

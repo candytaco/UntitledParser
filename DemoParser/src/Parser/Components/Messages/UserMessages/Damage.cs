@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -37,6 +38,13 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 			pw.AppendLine($"damage taken: {DamageTaken}");
 			pw.AppendLine($"visible bits damage: ({(uint)VisibleBitsDamage}) {VisibleBitsDamage}");
 			pw.Append($"vec from: {VecFrom:F3}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 
 

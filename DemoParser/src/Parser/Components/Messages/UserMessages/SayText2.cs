@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages.UserMessages {
 
@@ -33,6 +34,17 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 			for (var i = 0; i < Msgs.Length; i++)
 				pw.Append($"\nmessage {i + 1}: {Msgs[i]}");
 			pw.FutureIndent--;
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("SayText2", 
+				new XAttribute("ClientID", Client), 
+				new XAttribute("Wants-To-Chat", WantsToChat));
+			thisElement.Add(new XElement("Message-Name", MsgName));
+			foreach (string msg in Msgs)
+				thisElement.Add(new XElement("Message", msg));
+			parent.Add(thisElement);
 		}
 	}
 }

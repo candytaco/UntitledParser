@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -38,6 +39,19 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 			pw.AppendLine($"effect: {Effect}");
 			pw.AppendLine($"origin: {Origin}");
 			pw.Append($"angles: {Angles}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("PortalFXSurface");
+			thisElement.Add(new XElement("Portal-Entity",PortalEnt));
+			thisElement.Add(new XElement("Owner-Entity",OwnerEnt));
+			thisElement.Add(new XElement("Team",Team));
+			thisElement.Add(new XElement("PortalNum",PortalNum));
+			thisElement.Add(new XElement("Effect",Effect));
+			thisElement.Add(XMLHelper.MakeVect3Element("Origin", Origin));
+			thisElement.Add(XMLHelper.MakeVect3Element("Angles", Angles));
+			parent.Add(thisElement);
 		}
 	}
 

@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
@@ -26,6 +27,13 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 			pw.AppendLine($"type: {RumbleType}");
 			pw.AppendLine($"scale: {Scale}");
 			pw.Append($"flags: {RumbleFlags}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 

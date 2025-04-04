@@ -1,6 +1,7 @@
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 
 namespace DemoParser.Parser.Components.Messages.UserMessages.Haptic {
 
@@ -21,6 +22,13 @@ namespace DemoParser.Parser.Components.Messages.UserMessages.Haptic {
 
 		public override void PrettyWrite(IPrettyWriter pw) {
 			pw.Append($"unknown floats: ({F1}, {F2}, {F3})");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement(this.GetType().Name);
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 }
