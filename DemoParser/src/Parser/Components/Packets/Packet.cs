@@ -88,8 +88,7 @@ namespace DemoParser.Parser.Components.Packets {
 			foreach (CmdInfo cmdInfo in PacketInfo)
 				cmdInfo.XMLWrite(thisElement);
 			thisElement.Add(new XElement("Sequence", new XAttribute("In", InSequence), new XAttribute("Out", OutSequence)));
-			MessageStream.XMLWrite(thisElement);
-			parent.Add(this);
+			parent.Add(thisElement);
 		}
 	}
 
