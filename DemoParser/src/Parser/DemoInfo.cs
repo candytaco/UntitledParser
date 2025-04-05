@@ -65,6 +65,7 @@ namespace DemoParser.Parser {
 				[(3, 7)]    = HL2_OE,
 				[(3, 14)]   = PORTAL_1_3420,
 				[(3, 15)]   = PORTAL_1_5135,
+				[(3, 21)]	= CSS,
 				[(3, 24)]   = PORTAL_1_1910503,
 				[(4, 37)]   = L4D1_1005,
 				[(4, 1041)] = L4D1_1040,
@@ -96,6 +97,7 @@ namespace DemoParser.Parser {
 
 			// provide default values in case of unknown game
 			if (Game.IsPortal1() || Game.IsHL2() || (Game == UNKNOWN && h.DemoProtocol == 3)) {
+			if (Game.IsPortal1() || Game.IsHL2() || Game.IsCSS() || (Game == UNKNOWN && h.DemoProtocol == 3)) {
 				TickInterval = 0.015f;
 				MaxSplitscreenPlayers = 1;
 				if (h.NetworkProtocol <= 15 && Game != HL2_OE)
@@ -223,6 +225,8 @@ namespace DemoParser.Parser {
 	public enum SourceGame {
 		HL2_OE, // todo add regular hl2
 
+		CSS,	// Counterstrike: Source
+
 		PORTAL_1_3420,
 		PORTAL_1_3740,
 		PORTAL_1_5135,
@@ -252,6 +256,10 @@ namespace DemoParser.Parser {
 
 	public static class SourceGameExtensions {
 		public static bool IsHL2(this SourceGame game) { return game == HL2_OE; }
+
+		public static bool IsCSS(this SourceGame game)
+		{
+			return game == CSS;}
 		public static bool IsPortal1(this SourceGame game) { return game >= SourceGame.PORTAL_1_3420 && game <= SourceGame.PORTAL_1_1910503; }
 		public static bool IsPortal2(this SourceGame game) { return game == SourceGame.PORTAL_2; }
 		public static bool IsLeft4Dead1(this SourceGame game) { return game >= L4D1_1005 && game <= L4D1_1040; }
