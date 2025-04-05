@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Xml.Linq;
 using DemoParser.Parser.GameState;
 using DemoParser.Utils;
 using static DemoParser.Parser.EntityStuff.EntPropToStringHelper;
@@ -30,6 +31,13 @@ namespace DemoParser.Parser.EntityStuff {
 			pw.PadLastLine(tmp + 12, ' ');
 			pw.Append($"{FProp.Name}: ");
 			pw.Append(PropToString());
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("EntityProperty");
+			//TODO: this
+			parent.Add(thisElement);
 		}
 
 		protected abstract string PropToString();

@@ -19,7 +19,7 @@ namespace DemoParser.Parser.Components.Packets {
 
 		public override void XMLWrite(XElement parent)
 		{
-			return;
+			parent.Add(new XElement("Stop-Packet"));
 		}
 	}
 }

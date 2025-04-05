@@ -26,7 +26,7 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 		}
 		public override void XMLWrite(XElement parent)
 		{
-			XElement thisElement = new XElement(this.GetType().Name);
+			XElement thisElement = new XElement("MPTauntEarned");
 			//TODO: this
 			parent.Add(thisElement);
 		}

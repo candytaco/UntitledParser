@@ -47,7 +47,7 @@ namespace DemoParser.Parser.Components.Messages {
 
 		public override void XMLWrite(XElement parent)
 		{
-			XElement thisElement = new XElement(this.GetType().Name);
+			XElement thisElement = new XElement("SvcGameEventList");
 			//TODO: this
 			parent.Add(thisElement);
 		}
@@ -84,7 +84,7 @@ namespace DemoParser.Parser.Components.Messages {
 
 		public override void XMLWrite(XElement parent)
 		{
-			XElement thisElement = new XElement(this.GetType().Name);
+			XElement thisElement = new XElement("GameEventDescription");
 			//TODO: this
 			parent.Add(thisElement);
 		}

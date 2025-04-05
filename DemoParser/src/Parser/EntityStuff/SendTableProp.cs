@@ -3,6 +3,7 @@ using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.Components.Packets;
 using DemoParser.Utils;
 using DemoParser.Utils.BitStreams;
+using System.Xml.Linq;
 using static DemoParser.Parser.EntityStuff.SendPropEnums;
 
 namespace DemoParser.Parser.EntityStuff {
@@ -99,6 +100,13 @@ namespace DemoParser.Parser.EntityStuff {
 				pw.Append($" priority: {Priority}");
 			}
 			pw.FutureIndent--;
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("SendTableProp");
+			//TODO: this
+			parent.Add(thisElement);
 		}
 
 

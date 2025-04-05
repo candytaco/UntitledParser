@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Abstract;
 using DemoParser.Parser.Components.Messages;
 using DemoParser.Utils;
@@ -84,6 +85,14 @@ namespace DemoParser.Parser.Components {
 			}
 			if (!ParseSuccess)
 				pw.Append($"\nmore messages remaining... type: {_lastMsgType}");
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("Message-Stream");
+			foreach (DemoMessage message in Messages)
+				message.XMLWrite(thisElement);
+			parent.Add(thisElement);
 		}
 
 

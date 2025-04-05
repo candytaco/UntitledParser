@@ -17,7 +17,8 @@
           </Panel>
         </Border>
         <Button HorizontalAlignment="Center" Click="OpenDemoButton_OnClick">Open demo file</Button>
-	      <Button HorizontalAlignment="Center" Name="ExportDemoInfoButton" Click="ExportDemoInfoButton_OnClick">Export portal info</Button>
+	      <Button HorizontalAlignment="Center" Name="ExportPortalInfoButton" Click="ExportPortalInfoButton_OnClick">Export portal info</Button>
+	      <Button HorizontalAlignment="Center" Name="ExportDemoInfoButton" Click="ExportDemoInfoButton_OnClick">Export all info</Button>
       </StackPanel>
       <StackPanel Margin="15">
         <TextBlock Name="BasicDemoInfoTextBlock">Boop</TextBlock>

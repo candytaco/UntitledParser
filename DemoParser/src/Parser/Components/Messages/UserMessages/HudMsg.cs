@@ -39,7 +39,7 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 
 		public override void XMLWrite(XElement parent)
 		{
-			XElement thisElement = new XElement(this.GetType().Name);
+			XElement thisElement = new XElement("HUDMessage");
 			//TODO: this
 			if (MsgInfo != null)
 				MsgInfo.XMLWrite(thisElement);
@@ -94,7 +94,7 @@ namespace DemoParser.Parser.Components.Messages.UserMessages {
 
 			public override void XMLWrite(XElement parent)
 			{
-				XElement thisElement = new XElement(this.GetType().Name);
+				XElement thisElement = new XElement("HUDMessageInfo");
 				thisElement.Add(new XElement("Message", Message));
 				//TODO: this
 				parent.Add(thisElement);

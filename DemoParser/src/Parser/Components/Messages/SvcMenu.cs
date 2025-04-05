@@ -29,10 +29,10 @@ namespace DemoParser.Parser.Components.Messages {
 
 		public override void XMLWrite(XElement parent)
 		{
-			XElement thisElement = new XElement(this.GetType().Name);
+			XElement thisElement = new XElement("SvcMenu");
 			//TODO: this
 			parent.Add(thisElement);
 		}
-		}
+		
 	}
 }

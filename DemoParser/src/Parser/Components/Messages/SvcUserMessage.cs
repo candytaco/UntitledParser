@@ -70,6 +70,5 @@ namespace DemoParser.Parser.Components.Messages {
 				UserMessage.XMLWrite(thisElement);
 			parent.Add(thisElement);
 		}
-		}
 	}
 }

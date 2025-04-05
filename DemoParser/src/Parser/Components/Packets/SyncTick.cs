@@ -16,7 +16,7 @@ namespace DemoParser.Parser.Components.Packets {
 		protected override void Parse(ref BitStreamReader bsr) {}
 		public override void XMLWrite(XElement parent)
 		{
-			return;
+			parent.Add(new XElement("SyncTick"));
 		}
 	}
 }

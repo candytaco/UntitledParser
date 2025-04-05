@@ -254,7 +254,9 @@ namespace DemoParser.Parser.Components.Packets {
 
 		public override void XMLWrite(XElement parent)
 		{
-			throw new System.NotImplementedException();
+			XElement thisElement = new XElement("SendTable");
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 }

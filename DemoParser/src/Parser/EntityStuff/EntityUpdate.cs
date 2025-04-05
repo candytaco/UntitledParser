@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Linq;
 using DemoParser.Parser.Components.Messages;
 using DemoParser.Utils;
 
@@ -42,6 +43,13 @@ namespace DemoParser.Parser.EntityStuff {
 				prop.PrettyWrite(pw);
 			}
 			pw.FutureIndent--;
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("EntityUpdateDelta");
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 
@@ -106,6 +114,13 @@ namespace DemoParser.Parser.EntityStuff {
 				pw.Append($"({Index}) {(Delete ? "DELETE" : "LEAVE_PVS")} - ");
 				ServerClass.PrettyWrite(pw);
 			}
+		}
+
+		public override void XMLWrite(XElement parent)
+		{
+			XElement thisElement = new XElement("EntityUpdateLeavePvs");
+			//TODO: this
+			parent.Add(thisElement);
 		}
 	}
 }

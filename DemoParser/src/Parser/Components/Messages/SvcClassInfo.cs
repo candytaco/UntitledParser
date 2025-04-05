@@ -50,7 +50,7 @@ namespace DemoParser.Parser.Components.Messages {
 
 		public override void XMLWrite(XElement parent)
 		{
-			parent.Add(new XElement(this.GetType().Name));
+			parent.Add(new XElement("SvcClassInfo"));
 			// TODO: this
 		}
 	}
@@ -91,7 +91,7 @@ namespace DemoParser.Parser.Components.Messages {
 
 		public override void XMLWrite(XElement parent)
 		{
-			parent.Add(new XElement(this.GetType().Name));
+			parent.Add(new XElement("ServerClass"));
 			// TODO: this
 		}
 

@@ -52,7 +52,7 @@ namespace DemoParser.Parser.Components.Messages {
 
 		public override void XMLWrite(XElement parent)
 		{
-			XElement thisElement = new XElement(this.GetType().Name);
+			XElement thisElement = new XElement("SvcUpdateStringTable");
 			//TODO: this
 			parent.Add(thisElement);
 		}
@@ -234,7 +234,7 @@ namespace DemoParser.Parser.Components.Messages {
 
 		public override void XMLWrite(XElement parent)
 		{
-			XElement thisElement = new XElement(this.GetType().Name);
+			XElement thisElement = new XElement("StringTableUpdates");
 			//TODO: this
 			parent.Add(thisElement);
 		}
@@ -279,11 +279,11 @@ namespace DemoParser.Parser.Components.Messages {
 
 		public override void XMLWrite(XElement parent)
 		{
-			XElement thisElement = new XElement(this.GetType().Name);
+			XElement thisElement = new XElement("TableUpdate");
 			//TODO: this
 			parent.Add(thisElement);
 		}
-		}
+		
 	}
 
 

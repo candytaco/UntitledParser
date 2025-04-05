@@ -26,7 +26,7 @@ namespace DemoParser.Parser.Components.Messages.UserMessages.Haptic {
 
 		public override void XMLWrite(XElement parent)
 		{
-			XElement thisElement = new XElement(this.GetType().Name);
+			XElement thisElement = new XElement("HapticPunch");
 			//TODO: this
 			parent.Add(thisElement);
 		}

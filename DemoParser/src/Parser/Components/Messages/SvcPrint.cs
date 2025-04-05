@@ -54,6 +54,6 @@ namespace DemoParser.Parser.Components.Messages {
 			XElement thisElement = new XElement("SvcPrint", Str.Trim());
 			parent.Add(thisElement);
 		}
-		}
+		
 	}
 }
