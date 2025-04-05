@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Xml.Linq;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -174,7 +175,7 @@ namespace Coop_Demo_Parser
 			}
 		}
 
-		private void ExportDemoInfoButton_OnClick(object? sender, RoutedEventArgs e)
+		private void ExportPortalInfoButton_OnClick(object? sender, RoutedEventArgs e)
 		{
 			foreach (object item in filesListBox.Items)
 			{
@@ -187,6 +188,19 @@ namespace Coop_Demo_Parser
 			SourceDemo thisDemo = ((DemoListItem)filesListBox.SelectedItems[0]).demo;
 			SetDemoInfo(thisDemo);
 		}
-		
+
+		private void ExportDemoInfoButton_OnClick(object? sender, RoutedEventArgs e)
+		{
+			foreach (object item in filesListBox.Items)
+				ExportalAllDemoInfo((DemoListItem)item);
+		}
+
+		private void ExportalAllDemoInfo(DemoListItem item)
+		{
+			SourceDemo demo = item.demo;
+			string outFileName = Path.Combine(Path.GetFullPath(Path.GetDirectoryName(item.FullFilePath)), Path.GetFileNameWithoutExtension(item.FullFilePath) + ".xml");
+			XDocument xml = demo.ToXML();
+			xml.Save(outFileName);
+		}
 	}
 }
