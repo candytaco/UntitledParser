@@ -96,13 +96,12 @@ namespace DemoParser.Parser {
 			}
 
 			// provide default values in case of unknown game
-			if (Game.IsPortal1() || Game.IsHL2() || (Game == UNKNOWN && h.DemoProtocol == 3)) {
 			if (Game.IsPortal1() || Game.IsHL2() || Game.IsCSS() || (Game == UNKNOWN && h.DemoProtocol == 3)) {
 				TickInterval = 0.015f;
 				MaxSplitscreenPlayers = 1;
 				if (h.NetworkProtocol <= 15 && Game != HL2_OE)
 					demo.DemoParseResult |= DemoParseResult.EntParsingEnabled;
-				PacketTypes = h.NetworkProtocol <= 14 ? DemoPacket.Portal3420Table : DemoPacket.Portal15135Table;
+				PacketTypes = h.NetworkProtocol <= 14 ? DemoPacket.Portal3420Table : DemoPacket.CommandProto24Table;
 				if (h.NetworkProtocol <= 7)
 					UserMessageTypes = UserMessage.Hl2OeTable;
 				else if (h.NetworkProtocol <= 14)
@@ -116,7 +115,7 @@ namespace DemoParser.Parser {
 				MaxSplitscreenPlayers = 2;
 				if (Game == PORTAL_2)
 					demo.DemoParseResult |= DemoParseResult.EntParsingEnabled;
-				PacketTypes = DemoPacket.DemoProtocol4Table;
+				PacketTypes = DemoPacket.CommandProto36Table;
 				UserMessageTypes = UserMessage.Portal2Table;
 			} else if (Game.IsLeft4Dead()) {
 				TickInterval = 1f / 30;
@@ -129,7 +128,7 @@ namespace DemoParser.Parser {
 					L4D2_2203 => UserMessage.L4D2SteamTable,
 					_ => UserMessage.L4D2042Table
 				};
-				PacketTypes = DemoPacket.DemoProtocol4Table;
+				PacketTypes = DemoPacket.CommandProto36Table;
 			}
 
 			UserMessageTypesReverseLookup = UserMessageTypes?.CreateReverseLookupDict();

@@ -23,7 +23,7 @@ namespace DemoParser.Parser.Components.Abstract {
 			PacketType.Stop
 		};
 
-		public static readonly IReadOnlyList<PacketType> Portal15135Table = new[] {
+		public static readonly IReadOnlyList<PacketType> CommandProto24Table = new[] {
 			PacketType.Invalid,
 			PacketType.SignOn,
 			PacketType.Packet,
@@ -35,7 +35,7 @@ namespace DemoParser.Parser.Components.Abstract {
 			PacketType.StringTables
 		};
 
-		public static readonly IReadOnlyList<PacketType> DemoProtocol4Table = new[] {
+		public static readonly IReadOnlyList<PacketType> CommandProto36Table = new[] {
 			PacketType.Invalid,
 			PacketType.SignOn,
 			PacketType.Packet,
@@ -65,8 +65,8 @@ namespace DemoParser.Parser.Components.Abstract {
 				// is the first place I could think of to differentiate the versions.
 				if (demoInfo.Game == SourceGame.PORTAL_1_3420 && b == 8) {
 					demoInfo.Game = SourceGame.PORTAL_1_3740;
-					demoInfo.PacketTypes = Portal15135Table;
-					demoInfo.PacketTypesReverseLookup = Portal15135Table.CreateReverseLookupDict(PacketType.Invalid);
+					demoInfo.PacketTypes = CommandProto24Table;
+					demoInfo.PacketTypesReverseLookup = CommandProto24Table.CreateReverseLookupDict(PacketType.Invalid);
 					return ByteToPacketType(demoInfo, b);
 				}
 				return PacketType.Invalid;

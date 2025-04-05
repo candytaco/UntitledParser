@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Numerics;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using DemoParser.Parser.Components.Abstract;
@@ -17,6 +18,7 @@ namespace DemoParser.Parser.Components.Packets {
 		public uint? CommandNumber;
 		public uint? TickCount;
 		public float? ViewAngleX, ViewAngleY, ViewAngleZ;
+		public Vector3 ViewAngle;
 		public float? SidewaysMovement, ForwardMovement, VerticalMovement;
 		public Buttons? Buttons;
 		public byte? Impulse;
@@ -35,6 +37,7 @@ namespace DemoParser.Parser.Components.Packets {
 			ViewAngleX = uBsr.ReadFloatIfExists();
 			ViewAngleY = uBsr.ReadFloatIfExists();
 			ViewAngleZ = uBsr.ReadFloatIfExists();
+			ViewAngle = new Vector3(ViewAngleX?? 0, ViewAngleY?? 0, ViewAngleZ?? 0);
 			SidewaysMovement = uBsr.ReadFloatIfExists();
 			ForwardMovement = uBsr.ReadFloatIfExists();
 			VerticalMovement = uBsr.ReadFloatIfExists();
@@ -77,8 +80,7 @@ namespace DemoParser.Parser.Components.Packets {
 			XElement thisElement = new XElement("UserCommand",
 				new XAttribute("Command_number", CommandNumber.Value),
 				new XAttribute("Tick-Count", TickCount.Value));
-			if (ViewAngleX.HasValue || ViewAngleY.HasValue || ViewAngleZ.HasValue)
-				thisElement.Add(new XElement("View-Angles", String.Format("{0},{1},{2}", ViewAngleX, ViewAngleY, ViewAngleZ)));
+			thisElement.Add(XMLHelper.MakeVect3Element("View-Angle", ViewAngle));
 			if (SidewaysMovement.HasValue || ForwardMovement.HasValue || VerticalMovement.HasValue)
 				thisElement.Add(new XElement("Movement", String.Format("{0},{1},{2}", SidewaysMovement, ForwardMovement, VerticalMovement)));
 			if (Buttons.HasValue)
@@ -92,8 +94,16 @@ namespace DemoParser.Parser.Components.Packets {
 					weapon.Add(new XAttribute("Subtype", WeaponSubtype.ToString()));
 				thisElement.Add(weapon);
 			}
-			if (MouseDx.HasValue ||  MouseDy.HasValue)
-				thisElement.Add(new XElement("Mouse", new XAttribute("dX", MouseDx), new XAttribute("dY", MouseDy)));
+
+			if (MouseDx.HasValue || MouseDy.HasValue)
+			{
+				XElement mouse = new XElement("Mouse");
+				if (MouseDx.HasValue)
+					mouse.Add(new XAttribute("dX", MouseDx.Value));
+				if (MouseDy.HasValue)
+					mouse.Add(new XAttribute("dY", MouseDy.Value));
+			}
+
 			parent.Add(thisElement);
 		}
 	}
